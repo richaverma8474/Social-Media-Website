@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<main class="p-5">
+<div class="row text-justify">
+	<div class="col">
+	<h1 class="myhead2">REGISTER TO BE A PART OF OUR GROUP</h1>
+	<hr>
+	</div>
+</div>
+<div class="fancybox1">
+	<form enctype="multipart/form-data" method="post">
+		{% csrf_token %}
+		
+		{{form | crispy}}
+		<input class="bt bt1" type="submit" />
+		</form>
+
+</div>
+
+</main>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+
+<main class="p-5">
+<div class="row text-justify">
+	<div class="col">
+	<h1 class="myhead2" >LOGIN</h1>
+	<hr>
+	</div>
+</div>
+<div class="fancybox">
+	<form enctype="multipart/form-data" method="post">
+		{% csrf_token %}
+		{{form | crispy}}<br>
+		<input class="bt bt1" type="submit" /> &nbsp;
+		<br><br>
+		<a class="btn" href="/accounts/register/" >Register</a> &nbsp;
+		<a class="btn" href="/accounts/password/reset/">Reset Password</a>
+		</form>
+</div>
+
+</main>
+{% endblock %}

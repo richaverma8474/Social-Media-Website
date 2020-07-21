@@ -1,0 +1,1 @@
+web: gunicorn dtu.wsgi:application --log-file -

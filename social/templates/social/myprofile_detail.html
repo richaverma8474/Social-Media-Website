@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-5">
+	<h1 class="myhead2">{{myprofile.name}}</h1>
+	<hr>
+	<br> 
+	{% if myprofile.acc_type == "student" %}
+	 <div class="fancybox0">
+		<div class="row">
+			<div class="col-sm-6">
+			<p><strong>Age : </strong> {{myprofile.age}}</p>
+			<p><strong>Gender : </strong> {{myprofile.gender}}</p>
+			<p><strong>Societies Joined:  </strong> {{myprofile.societies}}</p>
+			<p><strong>Phone No : </strong> {{myprofile.phone_no}}</p>
+			<p><strong>Description : <br></strong> {{myprofile.bio}}</p>
+			</div>
+			<div class="col-sm-6">
+				<img class="img-fluid" src="/media/{{myprofile.pic}}"  style="height: 350px; width: 350px; border: 5px solid white;"/>
+			</div>
+		</div>
+
+	  </div>
+	{% else %}
+	
+	  <div class="fancybox0">
+		<div class="row">
+			<div class="col-sm-6">
+			
+		
+			
+			
+			<p><strong>Description : <br></strong> {{myprofile.bio}}</p>
+			</div>
+			<div class="col-sm-6">
+				<img class="img-fluid" src="/media/{{myprofile.pic}}"  style="height: 350px; width: 350px; border: 5px solid white;"/>
+			</div>
+		</div>
+
+	  </div>
+
+	{% endif %}
+
+    {% if post %}
+	<div class="row p-5">
+
+		{% for n1 in post %}
+	   <div class="col-sm-4 p-4">
+			  <div class="card h-100" style="align-items: center;">
+				  <img class="card-img-top" src="/media/{{n1.pic}}" alt="" style="width: 300px; height: 300px ; margin: 0 auto;"/>
+					 <div class="card-body">
+						<h4 class="card-title" style="text-align: center;">{{n1.subject}}</h4>
+							<p class="card-text">{{n1.cr_date | date:"d/m/y"}} <strong>&nbsp; {{n1.uploaded_by}}</strong>
+							   {% if n1.uploaded_by.pic %}
+								<img  class="img-fluid rounded-circle" src="/media/{{n1.uploaded_by.pic}}" style="width: 50px; height:50px;"/>
+							   {% endif %}
+							</p>
+							<hr><br>
+							  
+							
+						 
+						   <a class="btn btn-dark btn-sm" href='/social/mypost/{{n1.id}}'>Read More</a>
+						   {% if user.is_superuser %}
+						 <a class="btn btn-danger btn-sm" href='/social/mypost/delete/{{n1.id}}'><span class="fa fa-trash"></span></a>
+						  {% endif %}
+							 <span class="badge badge-info" style="padding: 6px 10px;">Likes {{n1.likedno}}</span> 
+							 <br><br>
+						
+						{% if n1.liked %}
+						<a class="btn btn-danger btn-sm" href='/social/mypost/unlike/{{n1.id}}' style="margin-left: 20px;" ><span class="fa fa-thumbs-down"></span></a>
+					   {% else %}
+						<a class="btn btn-success btn-sm" href='/social/mypost/like/{{n1.id}}' style="margin-left: 20px;"><span class="fa fa-thumbs-up"></span></a>
+					   {% endif %}
+					   <a class="btn btn-dark btn-sm" href='/social/comment/{{n1.id}}' style="margin: 0 auto; margin-left: 20px;" >Comments</a>
+					</div>
+				</div>
+		   
+	   </div>
+   {% endfor %}
+
+   {% endif %}
+   
+   
+	
+   </div>
+
+
+
+<br><br>
+<a href="/social/myprofile" class="btn btn-dark">Back</a>
+</div>
+
+
+{% endblock %}

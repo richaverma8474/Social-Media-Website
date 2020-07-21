@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<main class="p-5">
+<div class="row">
+	<div class="col-sm-6 offset-sm-3">
+	<h1 class="myhead2">Are you sure?</h1>
+		
+		<form enctype="multipart/form-data" method="post" style="padding-left: 320px;">
+		{% csrf_token %}
+		{{form | crispy}}
+		<input class="btn btn-danger my-3" type="submit" />
+		</form>
+		<a class="btn btn-secondary" href="/social/home" style="margin-left: 295px;">Back to home</a>
+	
+	</div>
+</div>
+</main>
+{% endblock %}

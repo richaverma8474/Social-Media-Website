@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-5">
+<h1 class="myhead2">Profiles </h1>
+<hr>
+<form class="form-inline">
+<input class="form-control mr-3" placeholder="Search" value="{{ request.GET.si }}" type="text" name="si" />
+<input class="btn btn-dark mr-3" type="submit" value="Search" />
+</form>
+<br>
+
+
+       
+    
+
+
+{% regroup object_list|dictsort:"name" by acc_type as acc_list %}
+
+  
+    {% for acc in acc_list %}
+   
+     {% if acc.grouper == "page" %}
+     <h1>PAGES</h1>
+
+     {% else %}
+     <h1>STUDENTS </h1>
+     
+     {% endif %}
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Username / Page</th>
+                    <th>Name</th>
+                    <th>Display</th>
+                    
+                    <th>Popularity</th>
+                    <th>Action</th>
+                </tr>
+               
+            </thead>
+
+            {% for n1 in acc.list %}
+            <tr>
+                <td>{{n1.name}}</td>
+                <td>{{n1.fname}} {{n1.lname}}</td>
+                <td> <img  class="img-fluid rounded-circle" src="/media/{{n1.pic}}" style="width: 50px; height:50px;" alt="None"/> </td>
+                
+                <td> <span class="badge badge-info">Followers:{{n1.followno}}</span> 
+                    <span class="badge badge-success">Following:{{n1.followingno}}</span></td>
+                <td>
+               
+                {% if n1.followed %}
+                <a class="btn btn-dark btn-sm" href='/social/myprofile/{{n1.id}}'>Read More</a>
+                <a class="btn btn-danger btn-sm" href='/social/myprofile/unfollow/{{n1.id}}'>Unfollow</a>
+                {% else %}
+                <a class="btn btn-primary btn-sm" href='/social/myprofile/follow/{{n1.id}}'>Follow</a>
+                {% endif %}
+                </td>
+            </tr>
+
+
+            {% endfor %}
+
+
+
+        </table>
+     
+
+    
+
+
+
+    {% endfor %}
+
+    
+ 
+
+</div>
+{% endblock %}
